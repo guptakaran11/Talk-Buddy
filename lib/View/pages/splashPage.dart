@@ -3,6 +3,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:talkbuddy/Controller/services/cloudStorageServices.dart';
+import 'package:talkbuddy/Controller/services/databaseServices.dart';
+import 'package:talkbuddy/Controller/services/mediaServices.dart';
 import 'package:talkbuddy/Controller/services/navigationService.dart';
 
 class SplashPage extends StatefulWidget {
@@ -60,6 +63,15 @@ class _SplashPageState extends State<SplashPage> {
   void registerServices() {
     GetIt.instance.registerSingleton<NavigationServices>(
       NavigationServices(),
+    );
+    GetIt.instance.registerSingleton<MediaServices>(
+      MediaServices(),
+    );
+    GetIt.instance.registerSingleton<CloudStorageService>(
+      CloudStorageService(),
+    );
+    GetIt.instance.registerSingleton<DatabaseServices>(
+      DatabaseServices(),
     );
   }
 }

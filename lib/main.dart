@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talkbuddy/View/pages/splashPage.dart';
 
-void main() {
+void main() async {
   runApp(
     SplashPage(
       key: UniqueKey(),
