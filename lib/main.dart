@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:talkbuddy/View/pages/splashPage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    SplashPage(
+      key: UniqueKey(),
+      onInitializationComplete: () {},
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
