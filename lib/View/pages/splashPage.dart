@@ -20,8 +20,12 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    setUp().then(
-      (_) => widget.onInitializationComplete(),
+    Future.delayed(const Duration(seconds: 1)).then(
+      (_) {
+        setUp().then(
+          (_) => widget.onInitializationComplete(),
+        );
+      },
     );
   }
 
@@ -56,7 +60,15 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> setUp() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: 'AIzaSyBJRAMejPtdZcSWDGdiuXVUws4BXyzPHsM',
+        appId: '1:1035927122108:android:7e2d086c6a94621e94e0b9',
+        projectId: 'talk-buddy-8ab7b',
+        messagingSenderId: '1035927122108',
+        storageBucket: 'talk-buddy-8ab7b.appspot.com',
+      ),
+    );
     registerServices();
   }
 
