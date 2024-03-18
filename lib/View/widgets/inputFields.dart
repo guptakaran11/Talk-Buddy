@@ -27,8 +27,17 @@ class CustomTextFormField extends StatelessWidget {
       validator: (value) {
         return RegExp(regExp).hasMatch(value!) ? null : 'Enter a valid value.';
       },
-      decoration: const InputDecoration(
-        fillColor: Color.fromRGBO(30, 29, 37, 1.0),
+      decoration: InputDecoration(
+        fillColor: const Color.fromRGBO(30, 29, 37, 1.0),
+        filled: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide.none,
+        ),
+        hintText: hintText,
+        hintStyle: const TextStyle(
+          color: Colors.white54,
+        ),
       ),
     );
   }

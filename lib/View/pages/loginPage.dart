@@ -44,6 +44,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(
+              height: height * 0.04,
+            ),
+            SizedBox(
               height: height * 0.18,
               child: Form(
                 key: loginFormKey,
