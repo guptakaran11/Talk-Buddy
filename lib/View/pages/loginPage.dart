@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talkbuddy/View/widgets/inputFields.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -42,23 +43,33 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            loginForm(),
+            SizedBox(
+              height: height * 0.18,
+              child: Form(
+                key: loginFormKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomTextFormField(
+                      onSaved: (value) {},
+                      regExp:
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                      hintText: 'Email',
+                      obscureText: false,
+                    ),
+                    CustomTextFormField(
+                      onSaved: (value) {},
+                      regExp: r".{8,}",
+                      hintText: 'Password',
+                      obscureText: true,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget loginForm() {
-    return SizedBox(
-      height: height * 0.18,
-      child: Form(
-        key: loginFormKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [],
         ),
       ),
     );

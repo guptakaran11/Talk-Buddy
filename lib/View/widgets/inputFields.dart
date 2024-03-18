@@ -24,6 +24,12 @@ class CustomTextFormField extends StatelessWidget {
         color: Colors.white,
       ),
       obscureText: obscureText,
+      validator: (value) {
+        return RegExp(regExp).hasMatch(value!) ? null : 'Enter a valid value.';
+      },
+      decoration: const InputDecoration(
+        fillColor: Color.fromRGBO(30, 29, 37, 1.0),
+      ),
     );
   }
 }
