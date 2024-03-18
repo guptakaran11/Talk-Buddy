@@ -7,6 +7,7 @@ import 'package:talkbuddy/Controller/services/cloudStorageServices.dart';
 import 'package:talkbuddy/Controller/services/databaseServices.dart';
 import 'package:talkbuddy/Controller/services/mediaServices.dart';
 import 'package:talkbuddy/Controller/services/navigationService.dart';
+import 'package:talkbuddy/firebase_options.dart';
 
 class SplashPage extends StatefulWidget {
   final VoidCallback onInitializationComplete;
@@ -61,13 +62,7 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> setUp() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: 'AIzaSyBJRAMejPtdZcSWDGdiuXVUws4BXyzPHsM',
-        appId: '1:1035927122108:android:7e2d086c6a94621e94e0b9',
-        projectId: 'talk-buddy-8ab7b',
-        messagingSenderId: '1035927122108',
-        storageBucket: 'talk-buddy-8ab7b.appspot.com',
-      ),
+      options: DefaultFirebaseOptions.currentPlatform,
     );
     registerServices();
   }

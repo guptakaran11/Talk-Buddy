@@ -18,9 +18,13 @@ class RoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: height,
       width: width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(height * 0.25),
+        color: const Color.fromRGBO(0, 82, 218, 1.0),
+      ),
       child: TextButton(
         onPressed: () {},
         child: Text(
