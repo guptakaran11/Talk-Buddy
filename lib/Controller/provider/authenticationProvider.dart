@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -13,5 +15,20 @@ class AuthenticationProvider extends ChangeNotifier {
     auth = FirebaseAuth.instance;
     navigationServices = GetIt.instance.get<NavigationServices>();
     databaseServices = GetIt.instance.get<DatabaseServices>();
+  }
+
+  Future<void> loginWithEmailAndPassword(String email, String password) async {
+    try {
+      await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException {
+      log("Error logging user into Firebase");
+    } catch (e) {
+      log(
+        e.toString(),
+      );
+    }
   }
 }
