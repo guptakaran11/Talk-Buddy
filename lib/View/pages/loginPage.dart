@@ -1,9 +1,6 @@
 // ignore_for_file: file_names
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:talkbuddy/View/widgets/inputFields.dart';
 import 'package:talkbuddy/View/widgets/roundedButton.dart';
 
