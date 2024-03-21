@@ -15,6 +15,14 @@ class AuthenticationProvider extends ChangeNotifier {
     auth = FirebaseAuth.instance;
     navigationServices = GetIt.instance.get<NavigationServices>();
     databaseServices = GetIt.instance.get<DatabaseServices>();
+
+    auth.authStateChanges().listen((user) {
+      if (user != null) {
+        log("Logged In");
+      } else {
+        log("Not Authenticated");
+      }
+    });
   }
 
   Future<void> loginWithEmailAndPassword(String email, String password) async {
@@ -23,12 +31,11 @@ class AuthenticationProvider extends ChangeNotifier {
         email: email,
         password: password,
       );
+      log(auth.currentUser.toString());
     } on FirebaseAuthException {
       log("Error logging user into Firebase");
     } catch (e) {
-      log(
-        e.toString(),
-      );
+      log(e.toString());
     }
   }
 }

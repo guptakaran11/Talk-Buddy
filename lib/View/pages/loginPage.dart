@@ -1,6 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
+import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+import 'package:talkbuddy/Controller/services/navigationService.dart';
 import 'package:talkbuddy/View/widgets/inputFields.dart';
 import 'package:talkbuddy/View/widgets/roundedButton.dart';
 
@@ -15,12 +19,20 @@ class _LoginPageState extends State<LoginPage> {
   late double height;
   late double width;
 
+  late AuthenticationProvider auth;
+  late NavigationServices navigation;
+
   final loginFormKey = GlobalKey<FormState>();
+
+  String? email;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
+    auth = Provider.of<AuthenticationProvider>(context);
+    navigation = GetIt.instance.get<NavigationServices>();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -61,7 +73,11 @@ class _LoginPageState extends State<LoginPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CustomTextFormField(
-                          onSaved: (value) {},
+                          onSaved: (value) {
+                            setState(() {
+                              email = value;
+                            });
+                          },
                           regExp:
                               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
                           hintText: 'Email',
@@ -71,7 +87,11 @@ class _LoginPageState extends State<LoginPage> {
                           height: height * 0.04,
                         ),
                         CustomTextFormField(
-                          onSaved: (value) {},
+                          onSaved: (value) {
+                            setState(() {
+                              password = value;
+                            });
+                          },
                           regExp: r".{8,}",
                           hintText: 'Password',
                           obscureText: true,
@@ -83,7 +103,12 @@ class _LoginPageState extends State<LoginPage> {
                           name: 'Login',
                           height: height * 0.065,
                           width: width * 0.65,
-                          onPressed: () {},
+                          onPressed: () {
+                            if (loginFormKey.currentState!.validate()) {
+                              loginFormKey.currentState!.save();
+                              auth.loginWithEmailAndPassword(email!, password!);
+                            }
+                          },
                         ),
                         SizedBox(
                           height: height * 0.02,
