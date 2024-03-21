@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                           height: height * 0.02,
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () => navigation.navigateToRoute('/register'),
                           child: const Text(
                             'Don\'t have an account? ',
                             style: TextStyle(

@@ -38,10 +38,12 @@ class AuthenticationProvider extends ChangeNotifier {
             );
             log(userModel.toString());
             log(userModel.toMap().toString());
+            navigationServices.removeAndNavigateToRoute('/home');
           },
         );
       } else {
         log("Not Authenticated");
+        // navigationServices.removeAndNavigateToRoute('/login');
       }
     });
   }

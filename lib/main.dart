@@ -1,8 +1,18 @@
+
+// Packages
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+// Providers
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+
+// Services
 import 'package:talkbuddy/Controller/services/navigationService.dart';
+
+// Pages
+import 'package:talkbuddy/View/pages/homePage.dart';
 import 'package:talkbuddy/View/pages/loginPage.dart';
+import 'package:talkbuddy/View/pages/registrationPage.dart';
 import 'package:talkbuddy/View/pages/splashPage.dart';
 
 void main() async {
@@ -45,6 +55,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/login',
         routes: {
           '/login': (BuildContext context) => const LoginPage(),
+          '/register': (BuildContext context) => const RegistrationPage(),
+          '/home': (BuildContext context) => const HomePage(),
         },
       ),
     );
