@@ -28,7 +28,7 @@ class ChatUserModel {
       "email": email,
       "name": name,
       "last_active": lastActive,
-      "image": imageURl
+      "image": imageURl,
     };
   }
 

@@ -40,7 +40,9 @@ class RoundedImageFile extends StatelessWidget {
       width: size,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(image.path.toString()),
+          image: AssetImage(
+            image.path.toString(),
+          ),
           fit: BoxFit.cover,
         ),
         borderRadius: BorderRadius.all(
