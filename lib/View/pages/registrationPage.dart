@@ -4,6 +4,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talkbuddy/Controller/services/mediaServices.dart';
+import 'package:talkbuddy/View/widgets/inputFields.dart';
+import 'package:talkbuddy/View/widgets/roundedButton.dart';
 import 'package:talkbuddy/View/widgets/roundedImage.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -17,7 +19,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
   late double height;
   late double width;
 
+  String? email;
+  String? password;
+  String? name;
+
   PlatformFile? profileImage;
+
+  final registerFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +47,62 @@ class _RegistrationPageState extends State<RegistrationPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             profileImageField(),
+            SizedBox(
+              height: height * 0.06,
+            ),
+            SizedBox(
+              height: height * 0.32,
+              child: Form(
+                key: registerFormKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomTextFormField(
+                      onSaved: (value) {
+                        setState(() {
+                          name = value;
+                        });
+                      },
+                      regExp: r".{8,}",
+                      hintText: "Name",
+                      obscureText: false,
+                    ),
+                    CustomTextFormField(
+                      onSaved: (value) {
+                        setState(() {
+                          email = value;
+                        });
+                      },
+                      regExp:
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                      hintText: "Email",
+                      obscureText: false,
+                    ),
+                    CustomTextFormField(
+                      onSaved: (value) {
+                        setState(() {
+                          password = value;
+                        });
+                      },
+                      regExp: r".{8,}",
+                      hintText: "Password",
+                      obscureText: true,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: height * 0.05,
+            ),
+            RoundedButton(
+              name: "Register",
+              height: height * 0.065,
+              width: width * 0.65,
+              onPressed: () async {},
+            ),
           ],
         ),
       ),
