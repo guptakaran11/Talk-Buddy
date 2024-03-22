@@ -13,6 +13,22 @@ class DatabaseServices {
 
   DatabaseServices(); // i changed this line from DatabaseServices(){} to DatabaseServices();
 
+  Future<void> createUser(
+      String uid, String email, String name, String imageUrl) async {
+    try {
+      await db.collection(userCollection).doc(uid).set(
+        {
+          "email": email,
+          "image": imageUrl,
+          "last_active": DateTime.now().toUtc(),
+          "name": name,
+        },
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   Future<DocumentSnapshot> getUser(String uid) {
     return db.collection(userCollection).doc(uid).get();
   }
