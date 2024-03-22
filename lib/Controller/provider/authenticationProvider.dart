@@ -19,33 +19,35 @@ class AuthenticationProvider extends ChangeNotifier {
     navigationServices = GetIt.instance.get<NavigationServices>();
     databaseServices = GetIt.instance.get<DatabaseServices>();
 
-    auth.authStateChanges().listen((user) {
-      if (user != null) {
-        log("Logged In");
-        databaseServices.updateUserLastSeenTime(user.uid);
-        databaseServices.getUser(user.uid).then(
-          (snapshot) {
-            Map<String, dynamic> userData =
-                snapshot.data()! as Map<String, dynamic>;
-            userModel = ChatUserModel.fromJSON(
-              {
-                "uid": user.uid,
-                "name": userData["name"],
-                "email": userData["email"],
-                "last_active": userData["last_active"],
-                "image": userData["image"],
-              },
-            );
-            log(userModel.toString());
-            log(userModel.toMap().toString());
-            navigationServices.removeAndNavigateToRoute('/home');
-          },
-        );
-      } else {
-        log("Not Authenticated");
-        // navigationServices.removeAndNavigateToRoute('/login');
-      }
-    });
+    auth.authStateChanges().listen(
+      (user) {
+        if (user != null) {
+          log("Logged In");
+          databaseServices.updateUserLastSeenTime(user.uid);
+          databaseServices.getUser(user.uid).then(
+            (snapshot) {
+              Map<String, dynamic> userData =
+                  snapshot.data()! as Map<String, dynamic>;
+              userModel = ChatUserModel.fromJSON(
+                {
+                  "uid": user.uid,
+                  "name": userData["name"],
+                  "email": userData["email"],
+                  "last_active": userData["last_active"],
+                  "image": userData["image"],
+                },
+              );
+              log(userModel.toString());
+              log(userModel.toMap().toString());
+              navigationServices.removeAndNavigateToRoute('/home');
+            },
+          );
+        } else {
+          log("Not Authenticated");
+          // navigationServices.removeAndNavigateToRoute('/login');
+        }
+      },
+    );
   }
 
   Future<void> loginWithEmailAndPassword(String email, String password) async {
@@ -57,6 +59,28 @@ class AuthenticationProvider extends ChangeNotifier {
       log(auth.currentUser.toString());
     } on FirebaseAuthException {
       log("Error logging user into Firebase");
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<String?> registerUserWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      UserCredential credentials = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return credentials.user!.uid;
+    } on FirebaseAuthException {
+      log("Error Registering user into Firebase");
+    } catch (e) {
+      log(e.toString());
+    }
+    return null; // i added this line if error comes in registering remove this line
+  }
+
+  Future<void> logOut() async {
+    try {
+      await auth.signOut();
     } catch (e) {
       log(e.toString());
     }

@@ -3,6 +3,10 @@ import 'dart:developer';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
+import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+import 'package:talkbuddy/Controller/services/cloudStorageServices.dart';
+import 'package:talkbuddy/Controller/services/databaseServices.dart';
 import 'package:talkbuddy/Controller/services/mediaServices.dart';
 import 'package:talkbuddy/View/widgets/inputFields.dart';
 import 'package:talkbuddy/View/widgets/roundedButton.dart';
@@ -19,6 +23,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
   late double height;
   late double width;
 
+  late AuthenticationProvider auth;
+  late DatabaseServices db;
+  late CloudStorageService cloudStorageService;
+
   String? email;
   String? password;
   String? name;
@@ -29,6 +37,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
+    auth = Provider.of<AuthenticationProvider>(context);
+    db = GetIt.instance.get<DatabaseServices>();
+    cloudStorageService = GetIt.instance.get<CloudStorageService>();
+
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
@@ -101,7 +113,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
               name: "Register",
               height: height * 0.065,
               width: width * 0.65,
-              onPressed: () async {},
+              onPressed: () async {
+                if (registerFormKey.currentState!.validate() &&
+                    profileImage != null) {
+                } else {}
+              },
             ),
           ],
         ),
