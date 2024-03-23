@@ -125,7 +125,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   String? imageUrl = await cloudStorage.saveUserImageToStorage(
                       uid!, profileImage!);
                   await db.createUser(uid, email!, name!, imageUrl!);
-                  navigation.goBackToPage();
+                  await auth.logOut();
+                  await auth.loginWithEmailAndPassword(email!, password!);
                 }
               },
             ),
