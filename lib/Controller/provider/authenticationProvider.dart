@@ -44,7 +44,9 @@ class AuthenticationProvider extends ChangeNotifier {
           );
         } else {
           log("Not Authenticated");
-          // navigationServices.removeAndNavigateToRoute('/login');
+          if (navigationServices.getCurrentRoute() != '/login') {
+            navigationServices.removeAndNavigateToRoute('/login');
+          }
         }
       },
     );

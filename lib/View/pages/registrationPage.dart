@@ -8,6 +8,7 @@ import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
 import 'package:talkbuddy/Controller/services/cloudStorageServices.dart';
 import 'package:talkbuddy/Controller/services/databaseServices.dart';
 import 'package:talkbuddy/Controller/services/mediaServices.dart';
+import 'package:talkbuddy/Controller/services/navigationService.dart';
 import 'package:talkbuddy/View/widgets/inputFields.dart';
 import 'package:talkbuddy/View/widgets/roundedButton.dart';
 import 'package:talkbuddy/View/widgets/roundedImage.dart';
@@ -25,7 +26,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   late AuthenticationProvider auth;
   late DatabaseServices db;
-  late CloudStorageService cloudStorageService;
+  late CloudStorageService cloudStorage;
+  late NavigationServices navigation;
 
   String? email;
   String? password;
@@ -39,7 +41,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     auth = Provider.of<AuthenticationProvider>(context);
     db = GetIt.instance.get<DatabaseServices>();
-    cloudStorageService = GetIt.instance.get<CloudStorageService>();
+    cloudStorage = GetIt.instance.get<CloudStorageService>();
+    navigation = GetIt.instance.get<NavigationServices>();
 
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
@@ -100,7 +103,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       },
                       regExp: r".{8,}",
                       hintText: "Password",
-                      obscureText: true,
+                      obscureText: false,
                     ),
                   ],
                 ),
@@ -116,7 +119,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
               onPressed: () async {
                 if (registerFormKey.currentState!.validate() &&
                     profileImage != null) {
-                } else {}
+                  registerFormKey.currentState!.save();
+                  String? uid = await auth.registerUserWithEmailAndPassword(
+                      email!, password!);
+                  String? imageUrl = await cloudStorage.saveUserImageToStorage(
+                      uid!, profileImage!);
+                  await db.createUser(uid, email!, name!, imageUrl!);
+                  navigation.goBackToPage();
+                }
               },
             ),
           ],
