@@ -10,14 +10,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int currentPage = 0;
+  final List<Widget> pages = [
+    Container(
+      color: Colors.blueAccent,
+    ),
+    Container(
+      color: Colors.yellowAccent,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text(
-          'Hello',
-          style: TextStyle(color: Colors.white),
-        ),
+    return Scaffold(
+      body: pages[currentPage],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentPage,
+        onTap: (index) {
+          setState(() {
+            currentPage = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            label: "Chats",
+            icon: Icon(
+              Icons.chat_bubble_rounded,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: "Users",
+            icon: Icon(
+              Icons.supervisor_account_rounded,
+            ),
+          ),
+        ],
       ),
     );
   }
