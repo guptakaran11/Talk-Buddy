@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   int currentPage = 0;
   final List<Widget> pages = [
     Container(
-      color: Colors.blueAccent,
+      color: Colors.greenAccent,
     ),
     Container(
       color: Colors.yellowAccent,
