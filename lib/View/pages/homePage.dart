@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:talkbuddy/View/pages/chatAndUserPages/chatsPage.dart';
+import 'package:talkbuddy/View/pages/chatAndUserPages/userPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,12 +14,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentPage = 0;
   final List<Widget> pages = [
-    Container(
-      color: Colors.greenAccent,
-    ),
-    Container(
-      color: Colors.yellowAccent,
-    ),
+    const ChatsPage(),
+    const UserPage(),
   ];
 
   @override
