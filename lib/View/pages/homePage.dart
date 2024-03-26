@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:talkbuddy/View/pages/chatAndUserPages/chatsPage.dart';
-import 'package:talkbuddy/View/pages/chatAndUserPages/userPage.dart';
+import 'package:talkbuddy/View/pages/chatAndUserPages/chatsScreen.dart';
+import 'package:talkbuddy/View/pages/chatAndUserPages/userScreen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

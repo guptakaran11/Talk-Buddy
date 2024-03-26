@@ -11,8 +11,8 @@ import 'package:talkbuddy/Controller/services/navigationService.dart';
 
 // Pages
 import 'package:talkbuddy/View/pages/homePage.dart';
-import 'package:talkbuddy/View/pages/authenticationPages/loginPage.dart';
-import 'package:talkbuddy/View/pages/authenticationPages/registrationPage.dart';
+import 'package:talkbuddy/View/pages/authenticationScreens/loginPage.dart';
+import 'package:talkbuddy/View/pages/authenticationScreens/registrationPage.dart';
 import 'package:talkbuddy/View/pages/splashPage.dart';
 
 void main() async {
