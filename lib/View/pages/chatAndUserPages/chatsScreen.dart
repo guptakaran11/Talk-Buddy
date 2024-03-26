@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+import 'package:talkbuddy/View/widgets/customListViewTiles.dart';
 import 'package:talkbuddy/View/widgets/topBar.dart';
 
 class ChatsPage extends StatefulWidget {
@@ -48,6 +49,15 @@ class _ChatsPageState extends State<ChatsPage> {
                 color: Color.fromRGBO(0, 82, 218, 1.0),
               ),
             ),
+          ),
+          CustomListViewTileWithActivity(
+            height: height * 0.10,
+            title: "Ram Chandra",
+            subtitle: "Hello!",
+            imagePath: "https://i.pravatar.cc/300",
+            isActive: false,
+            isActivity: false,
+            onTap: () {},
           ),
         ],
       ),

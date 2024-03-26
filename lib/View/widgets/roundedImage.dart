@@ -53,3 +53,33 @@ class RoundedImageFile extends StatelessWidget {
     );
   }
 }
+
+class RoundedImageWithStatusIndicator extends RoundedImageNetwork {
+  final bool isActive;
+
+  const RoundedImageWithStatusIndicator({
+    super.key,
+    required super.imagePath,
+    required super.size,
+    required this.isActive,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.bottomRight,
+      children: [
+        super.build(context),
+        Container(
+          height: size * 0.20,
+          width: size * 0.20,
+          decoration: BoxDecoration(
+            color: isActive ? Colors.greenAccent.shade400 : Colors.red.shade700,
+            borderRadius: BorderRadius.circular(size),
+          ),
+        ),
+      ],
+    );
+  }
+}
