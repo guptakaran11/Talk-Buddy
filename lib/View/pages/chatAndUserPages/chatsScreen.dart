@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+import 'package:talkbuddy/View/widgets/topBar.dart';
 
 class ChatsPage extends StatefulWidget {
   const ChatsPage({super.key});
@@ -36,7 +37,18 @@ class _ChatsPageState extends State<ChatsPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          
+          TopBar(
+            'Chats',
+            primaryAction: IconButton(
+              onPressed: () {
+                auth.logOut();
+              },
+              icon: const Icon(
+                Icons.logout_rounded,
+                color: Color.fromRGBO(0, 82, 218, 1.0),
+              ),
+            ),
+          ),
         ],
       ),
     );

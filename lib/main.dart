@@ -13,7 +13,7 @@ import 'package:talkbuddy/Controller/services/navigationService.dart';
 import 'package:talkbuddy/View/pages/homePage.dart';
 import 'package:talkbuddy/View/pages/authenticationScreens/loginPage.dart';
 import 'package:talkbuddy/View/pages/authenticationScreens/registrationPage.dart';
-import 'package:talkbuddy/View/pages/splashPage.dart';
+import 'package:talkbuddy/View/pages/splashScreen.dart';
 
 void main() async {
   runApp(

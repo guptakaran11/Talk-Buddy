@@ -16,7 +16,7 @@ class TopBar extends StatelessWidget {
     super.key,
     this.primaryAction,
     this.secondartAction,
-    this.fontSize,
+    this.fontSize = 35,
   });
 
   @override
@@ -31,7 +31,19 @@ class TopBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [],
+        children: [
+          if (secondartAction != null) secondartAction!,
+          Text(
+            topBarTitle,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: fontSize,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          if (primaryAction != null) primaryAction!,
+        ],
       ),
     );
   }
