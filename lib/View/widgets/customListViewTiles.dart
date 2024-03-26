@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:talkbuddy/View/widgets/roundedImage.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CustomListViewTileWithActivity extends StatelessWidget {
   final double height;
@@ -43,6 +44,26 @@ class CustomListViewTileWithActivity extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
+      subtitle: isActivity
+          ? Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SpinKitThreeBounce(
+                  color: Colors.white54,
+                  size: height * 0.10,
+                ),
+              ],
+            )
+          : Text(
+              subtitle,
+              style: const TextStyle(
+                color: Colors.white54,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
     );
   }
 }
