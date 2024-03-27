@@ -103,7 +103,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       },
                       regExp: r".{8,}",
                       hintText: "Password",
-                      obscureText: false,
+                      obscureText: true,
                     ),
                   ],
                 ),

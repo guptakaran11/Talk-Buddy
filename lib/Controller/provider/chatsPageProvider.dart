@@ -19,6 +19,7 @@ class ChatsPageProvider extends ChangeNotifier {
 
   ChatsPageProvider(this.auth) {
     db = GetIt.instance.get<DatabaseServices>();
+    getChats();
   }
 
   @override
@@ -26,4 +27,6 @@ class ChatsPageProvider extends ChangeNotifier {
     chatsStream.cancel();
     super.dispose();
   }
+
+  void getChats() async {}
 }
