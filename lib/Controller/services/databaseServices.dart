@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 const String userCollection = "Users";
 const String chatCollection = "Chats";
-const String messageCollection = "Messages";
+const String messageCollection = "messages";
 
 class DatabaseServices {
   final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -31,6 +31,23 @@ class DatabaseServices {
 
   Future<DocumentSnapshot> getUser(String uid) {
     return db.collection(userCollection).doc(uid).get();
+  }
+
+  Stream<QuerySnapshot> getChatsForUser(String uid) {
+    return db
+        .collection(chatCollection)
+        .where('members', arrayContains: uid)
+        .snapshots();
+  }
+
+  Future<QuerySnapshot> getLastMessageForChat(String chatID) {
+    return db
+        .collection(chatCollection)
+        .doc(chatID)
+        .collection(messageCollection)
+        .orderBy("sent_time", descending: true)
+        .limit(1)
+        .get();
   }
 
   Future<void> updateUserLastSeenTime(String uid) async {
