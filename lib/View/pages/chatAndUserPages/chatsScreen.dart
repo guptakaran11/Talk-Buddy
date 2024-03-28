@@ -4,12 +4,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
 import 'package:talkbuddy/Controller/provider/chatsPageProvider.dart';
+import 'package:talkbuddy/Controller/services/navigationService.dart';
 import 'package:talkbuddy/Model/chatMessageModel.dart';
 import 'package:talkbuddy/Model/chatModel.dart';
 import 'package:talkbuddy/Model/chatUserModel.dart';
+import 'package:talkbuddy/View/pages/chatAndUserPages/messageScreen.dart';
 import 'package:talkbuddy/View/widgets/customListViewTiles.dart';
 import 'package:talkbuddy/View/widgets/topBar.dart';
 
@@ -25,11 +28,13 @@ class _ChatsPageState extends State<ChatsPage> {
   late double width;
 
   late AuthenticationProvider auth;
+  late NavigationServices navigation;
   late ChatsPageProvider pageProvider;
 
   @override
   Widget build(BuildContext context) {
     auth = Provider.of<AuthenticationProvider>(context);
+    navigation = GetIt.instance.get<NavigationServices>();
 
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
@@ -51,7 +56,7 @@ class _ChatsPageState extends State<ChatsPage> {
         return Container(
           padding: EdgeInsets.symmetric(
             horizontal: width * 0.03,
-            vertical: height * 0.02,
+            vertical: height * 0.04,
           ),
           height: height * 0.98,
           width: width * 0.97,
@@ -129,7 +134,13 @@ class _ChatsPageState extends State<ChatsPage> {
       imagePath: chat.imageURL(),
       isActive: isActive,
       isActivity: chat.activity,
-      onTap: () {},
+      onTap: () {
+        navigation.navigateToPage(
+          MessageScreen(
+            chat: chat,
+          ),
+        );
+      },
     );
   }
 }
