@@ -1,9 +1,6 @@
 // ignore_for_file: file_names
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
