@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+import 'package:talkbuddy/Controller/provider/messagePageProvider.dart';
 import 'package:talkbuddy/Model/chatModel.dart';
 import 'package:talkbuddy/View/widgets/topBar.dart';
 
@@ -19,9 +20,17 @@ class _MessageScreenState extends State<MessageScreen> {
   late double width;
 
   late AuthenticationProvider auth;
+  late MessagePageProvider pageProvider;
 
   late GlobalKey<FormState> messageFormState;
   late ScrollController messagesListViewController;
+
+  @override
+  void initState() {
+    super.initState();
+    messageFormState = GlobalKey<FormState>();
+    messagesListViewController = ScrollController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,44 +39,61 @@ class _MessageScreenState extends State<MessageScreen> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: width * 0.03,
-            vertical: height * 0.02,
-          ),
-          height: height,
-          width: width * 0.97,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TopBar(
-                widget.chat.title(),
-                fontSize: 15,
-                primaryAction: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.delete_rounded,
-                    color: Color.fromRGBO(0, 82, 218, 1.0),
-                  ),
-                ),
-                secondartAction: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios_rounded,
-                    color: Color.fromRGBO(0, 82, 218, 1.0),
-                  ),
-                ),
-              ),
-            ],
-          ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MessagePageProvider>(
+          create: (_) => MessagePageProvider(
+              widget.chat.uid, auth, messagesListViewController),
         ),
-      ),
+      ],
+      child: buildUI(),
+    );
+  }
+
+  Widget buildUI() {
+    return Builder(
+      builder: (BuildContext context) {
+        pageProvider = context.watch<MessagePageProvider>();
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: width * 0.03,
+                vertical: height * 0.02,
+              ),
+              height: height,
+              width: width * 0.97,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TopBar(
+                    widget.chat.title(),
+                    fontSize: 18,
+                    primaryAction: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.delete_rounded,
+                        color: Color.fromRGBO(0, 82, 218, 1.0),
+                      ),
+                    ),
+                    secondartAction: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Color.fromRGBO(0, 82, 218, 1.0),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

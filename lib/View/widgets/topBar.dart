@@ -25,7 +25,7 @@ class TopBar extends StatelessWidget {
     width = MediaQuery.of(context).size.width;
 
     return SizedBox(
-      height: height * 0.10,
+      height: height * 0.11,
       width: width,
       child: Row(
         mainAxisSize: MainAxisSize.max,
