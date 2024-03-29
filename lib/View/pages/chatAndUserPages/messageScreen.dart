@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
 import 'package:talkbuddy/Controller/provider/messagePageProvider.dart';
+import 'package:talkbuddy/Model/chatMessageModel.dart';
 import 'package:talkbuddy/Model/chatModel.dart';
+import 'package:talkbuddy/View/widgets/customListViewTiles.dart';
 import 'package:talkbuddy/View/widgets/topBar.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -88,6 +90,7 @@ class _MessageScreenState extends State<MessageScreen> {
                       ),
                     ),
                   ),
+                  messagesListView(),
                 ],
               ),
             ),
@@ -95,5 +98,45 @@ class _MessageScreenState extends State<MessageScreen> {
         );
       },
     );
+  }
+
+  Widget messagesListView() {
+    if (pageProvider.messageModel != null) {
+      if (pageProvider.messageModel!.isNotEmpty) {
+        return SizedBox(
+          height: height * 0.74,
+          child: ListView.builder(
+            itemCount: pageProvider.messageModel!.length,
+            itemBuilder: (BuildContext context, int index) {
+              ChatMessageModel message = pageProvider.messageModel![index];
+              bool isOwnMessage = message.senderID == auth.userModel.uid;
+              return CustomMessageListViewTile(
+                height: height,
+                tileWidth: width * 0.80,
+                message: message,
+                isOwnMessage: isOwnMessage,
+                sender: widget.chat.members
+                    .where((m) => m.uid == message.senderID)
+                    .first,
+              );
+            },
+          ),
+        );
+      } else {
+        return const Align(
+          alignment: Alignment.center,
+          child: Text(
+            "Be the first to say Hi!",
+            style: TextStyle(color: Colors.white),
+          ),
+        );
+      }
+    } else {
+      return const Center(
+        child: CircularProgressIndicator(
+          color: Colors.white,
+        ),
+      );
+    }
   }
 }

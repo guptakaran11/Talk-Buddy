@@ -2,6 +2,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:talkbuddy/Model/chatMessageModel.dart';
+import 'package:talkbuddy/Model/chatUserModel.dart';
 import 'package:talkbuddy/View/widgets/roundedImage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -64,6 +66,52 @@ class CustomListViewTileWithActivity extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
             ),
+    );
+  }
+}
+
+class CustomMessageListViewTile extends StatelessWidget {
+  final double tileWidth;
+  final double height;
+  final bool isOwnMessage;
+  final ChatMessageModel message;
+  final ChatUserModel sender;
+
+  const CustomMessageListViewTile({
+    super.key,
+    required this.tileWidth,
+    required this.height,
+    required this.isOwnMessage,
+    required this.message,
+    required this.sender,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 10),
+      width: tileWidth,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment:
+            isOwnMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          !isOwnMessage
+              ? RoundedImageNetwork(
+                  key: UniqueKey(),
+                  imagePath: sender.imageURl,
+                  size: tileWidth * 0.04,
+                )
+              : Container(),
+          SizedBox(
+            width: tileWidth * 0.05,
+          ),
+          message.type == MessageType.TEXT
+              ? Text(message.content)
+              : Text(message.content),
+        ],
+      ),
     );
   }
 }
