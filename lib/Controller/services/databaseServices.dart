@@ -3,10 +3,11 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:talkbuddy/Model/chatMessageModel.dart';
 
 const String userCollection = "Users";
 const String chatCollection = "Chats";
-const String messageCollection = "messages";
+const String messagesCollection = "messages";
 
 class DatabaseServices {
   final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -44,10 +45,39 @@ class DatabaseServices {
     return db
         .collection(chatCollection)
         .doc(chatID)
-        .collection(messageCollection)
+        .collection(messagesCollection)
         .orderBy("sent_time", descending: true)
         .limit(1)
         .get();
+  }
+
+  Stream<QuerySnapshot> streamMessagesForChat(String chatID) {
+    return db
+        .collection(chatCollection)
+        .doc(chatID)
+        .collection(messagesCollection)
+        .orderBy("sent_time", descending: false)
+        .snapshots();
+  }
+
+  Future<void> addMessageToChat(String chatID, ChatMessageModel message) async {
+    try {
+      await db
+          .collection(chatCollection)
+          .doc(chatID)
+          .collection(messagesCollection)
+          .add(message.toJson());
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> updateChatData(String chatID, Map<String, dynamic> data) async {
+    try {
+      await db.collection(chatCollection).doc(chatID).update(data);
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   Future<void> updateUserLastSeenTime(String uid) async {
@@ -57,6 +87,14 @@ class DatabaseServices {
           "last_active": DateTime.now().toUtc(),
         },
       );
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> deleteChat(String chatID) async {
+    try {
+      await db.collection(chatCollection).doc(chatID).delete();
     } catch (e) {
       log(e.toString());
     }
