@@ -110,14 +110,16 @@ class _MessageScreenState extends State<MessageScreen> {
             itemBuilder: (BuildContext context, int index) {
               ChatMessageModel message = pageProvider.messageModel![index];
               bool isOwnMessage = message.senderID == auth.userModel.uid;
-              return CustomMessageListViewTile(
-                height: height,
-                tileWidth: width * 0.80,
-                message: message,
-                isOwnMessage: isOwnMessage,
-                sender: widget.chat.members
-                    .where((m) => m.uid == message.senderID)
-                    .first,
+              return SizedBox(
+                child: CustomMessageListViewTile(
+                  height: height,
+                  tileWidth: width * 0.80,
+                  message: message,
+                  isOwnMessage: isOwnMessage,
+                  sender: widget.chat.members
+                      .where((m) => m.uid == message.senderID)
+                      .first,
+                ),
               );
             },
           ),

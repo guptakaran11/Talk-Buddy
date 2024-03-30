@@ -90,7 +90,9 @@ class CustomMessageListViewTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(
+        bottom: 12,
+      ),
       width: tileWidth,
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -102,7 +104,7 @@ class CustomMessageListViewTile extends StatelessWidget {
               ? RoundedImageNetwork(
                   key: UniqueKey(),
                   imagePath: sender.imageURl,
-                  size: tileWidth * 0.06,
+                  size: tileWidth * 0.08,
                 )
               : Container(),
           SizedBox(
@@ -120,7 +122,7 @@ class CustomMessageListViewTile extends StatelessWidget {
                   message: message,
                   height: height * 0.30,
                   width: tileWidth * 0.55,
-                )
+                ),
         ],
       ),
     );
