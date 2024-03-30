@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:talkbuddy/Model/chatMessageModel.dart';
 import 'package:talkbuddy/Model/chatUserModel.dart';
+import 'package:talkbuddy/View/widgets/messageBubbles.dart';
 import 'package:talkbuddy/View/widgets/roundedImage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -101,14 +102,19 @@ class CustomMessageListViewTile extends StatelessWidget {
               ? RoundedImageNetwork(
                   key: UniqueKey(),
                   imagePath: sender.imageURl,
-                  size: tileWidth * 0.04,
+                  size: tileWidth * 0.06,
                 )
               : Container(),
           SizedBox(
-            width: tileWidth * 0.05,
+            width: tileWidth * 0.03,
           ),
           message.type == MessageType.TEXT
-              ? Text(message.content)
+              ? TextMessageBubble(
+                  isOwnMessage: isOwnMessage,
+                  message: message,
+                  height: height * 0.07,
+                  width: tileWidth,
+                )
               : Text(message.content),
         ],
       ),
