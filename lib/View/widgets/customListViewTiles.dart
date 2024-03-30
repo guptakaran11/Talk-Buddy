@@ -115,7 +115,12 @@ class CustomMessageListViewTile extends StatelessWidget {
                   height: height * 0.07,
                   width: tileWidth,
                 )
-              : Text(message.content),
+              : ImageMessageBubble(
+                  isOwnMessage: isOwnMessage,
+                  message: message,
+                  height: height * 0.30,
+                  width: tileWidth * 0.55,
+                )
         ],
       ),
     );
