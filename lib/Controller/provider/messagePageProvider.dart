@@ -33,6 +33,10 @@ class MessagePageProvider extends ChangeNotifier {
     return messages;
   }
 
+  set messages(String value) {
+    message = value;
+  }
+
   MessagePageProvider(this.chatId, this.auth, this.messagesListViewController) {
     db = GetIt.instance.get<DatabaseServices>();
     storage = GetIt.instance.get<CloudStorageService>();
