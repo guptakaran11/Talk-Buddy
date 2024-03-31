@@ -113,6 +113,7 @@ class _MessageScreenState extends State<MessageScreen> {
         return SizedBox(
           height: height * 0.72,
           child: ListView.builder(
+            controller: messagesListViewController,
             itemCount: pageProvider.messageModel!.length,
             itemBuilder: (BuildContext context, int index) {
               ChatMessageModel message = pageProvider.messageModel![index];
@@ -123,8 +124,7 @@ class _MessageScreenState extends State<MessageScreen> {
                 message: message,
                 isOwnMessage: isOwnMessage,
                 sender: widget.chat.members
-                    .where((m) => m.uid == message.senderID)
-                    .first,
+                    .firstWhere((m) => m.uid == message.senderID),
               );
             },
           ),
@@ -165,6 +165,7 @@ class _MessageScreenState extends State<MessageScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            imageMessageButton(),
             SizedBox(
               width: width * 0.64,
               child: CustomTextFormField(
@@ -177,7 +178,7 @@ class _MessageScreenState extends State<MessageScreen> {
               ),
             ),
             sendMessageButton(),
-            imageMessageButton(),
+            // i changed this position so run it
           ],
         ),
       ),
@@ -190,7 +191,13 @@ class _MessageScreenState extends State<MessageScreen> {
       height: size,
       width: size,
       child: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          if (messageFormState.currentState!.validate()) {
+            messageFormState.currentState!.save();
+            pageProvider.sendTextMessage();
+            messageFormState.currentState!.reset();
+          }
+        },
         icon: const Icon(
           Icons.send_rounded,
           color: Colors.white,
@@ -205,7 +212,9 @@ class _MessageScreenState extends State<MessageScreen> {
       height: size,
       width: size,
       child: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          pageProvider.sendImageMessage();
+        },
         backgroundColor: const Color.fromRGBO(0, 82, 218, 1.0),
         child: const Icon(
           Icons.camera_enhance,
