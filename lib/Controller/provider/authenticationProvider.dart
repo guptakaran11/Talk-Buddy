@@ -37,7 +37,6 @@ class AuthenticationProvider extends ChangeNotifier {
                   "image": userData["image"],
                 },
               );
-              log(userModel.toString());
               log(userModel.toMap().toString());
               navigationServices.removeAndNavigateToRoute('/home');
             },

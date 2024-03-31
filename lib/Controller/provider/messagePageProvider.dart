@@ -5,6 +5,7 @@ import 'dart:developer';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
 import 'package:talkbuddy/Controller/services/cloudStorageServices.dart';
@@ -26,6 +27,8 @@ class MessagePageProvider extends ChangeNotifier {
   List<ChatMessageModel>? messageModel;
 
   late StreamSubscription messagesStream;
+  late StreamSubscription keyboardVisibilityStream;
+  late KeyboardVisibilityController keyboardVisibilityController;
 
   String? message;
 
@@ -42,7 +45,9 @@ class MessagePageProvider extends ChangeNotifier {
     storage = GetIt.instance.get<CloudStorageService>();
     media = GetIt.instance.get<MediaServices>();
     navigation = GetIt.instance.get<NavigationServices>();
+    keyboardVisibilityController = KeyboardVisibilityController();
     listenToMessages();
+    listenToKeyboardChanges();
   }
 
   @override
@@ -64,12 +69,29 @@ class MessagePageProvider extends ChangeNotifier {
           ).toList();
           messageModel = messages;
           notifyListeners();
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) {
+              if (messagesListViewController.hasClients) {
+                messagesListViewController.jumpTo(
+                  messagesListViewController.position.maxScrollExtent,
+                );
+              }
+            },
+          );
         },
       );
     } catch (e) {
       log("Error getting messages. ");
       log(e.toString());
     }
+  }
+
+  void listenToKeyboardChanges() {
+    keyboardVisibilityStream = keyboardVisibilityController.onChange.listen(
+      (event) {
+        db.updateChatData(chatId, {"is_activity": event});
+      },
+    );
   }
 
   void sendTextMessage() {
