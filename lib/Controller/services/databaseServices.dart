@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_interpolation_to_compose_strings
 
 import 'dart:developer';
 
@@ -32,6 +32,16 @@ class DatabaseServices {
 
   Future<DocumentSnapshot> getUser(String uid) {
     return db.collection(userCollection).doc(uid).get();
+  }
+
+  Future<QuerySnapshot> getUserFromDatabase({String? name}) {
+    Query query = db.collection(userCollection);
+    if (name != null) {
+      query = query
+          .where("name", isGreaterThanOrEqualTo: name)
+          .where("name", isLessThanOrEqualTo: name + "z");
+    }
+    return query.get();
   }
 
   Stream<QuerySnapshot> getChatsForUser(String uid) {

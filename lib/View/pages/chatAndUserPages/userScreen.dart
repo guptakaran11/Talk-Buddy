@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
 import 'package:talkbuddy/Controller/provider/userPageProvider.dart';
+import 'package:talkbuddy/Model/chatUserModel.dart';
 import 'package:talkbuddy/View/widgets/customListViewTiles.dart';
 import 'package:talkbuddy/View/widgets/inputFields.dart';
 import 'package:talkbuddy/View/widgets/topBar.dart';
@@ -86,23 +87,43 @@ class _UserPageState extends State<UserPage> {
   }
 
   Widget usersList() {
+    List<ChatUserModel>? users = pageProvider.users;
     return Expanded(child: () {
-      return ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) {
-          return CustomListViewTile(
-            height: height * 0.10,
-            title: "Users $index",
-            subtitle: "Last Active : ",
-            imagePath: "https://i.pravatar.cc/300",
-            isActive: false,
-            isSelected: false,
-            onTap: () {},
+      if (users != null) {
+        if (users.isNotEmpty) {
+          return ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: users.length,
+            itemBuilder: (BuildContext context, int index) {
+              return CustomListViewTile(
+                height: height * 0.10,
+                title: users[index].name,
+                subtitle: "Last Active: ${users[index].lastDayActive()} ",
+                imagePath: users[index].imageURl,
+                isActive: users[index].wasRecentlyActive(),
+                isSelected: false,
+                onTap: () {},
+              );
+            },
           );
-        },
-      );
+        } else {
+          return const Center(
+            child: Text(
+              "No Users found!!",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          );
+        }
+      } else {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        );
+      }
     }());
   }
 }
