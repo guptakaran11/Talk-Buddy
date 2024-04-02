@@ -113,6 +113,8 @@ class _MessageScreenState extends State<MessageScreen> {
         return SizedBox(
           height: height * 0.72,
           child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
             controller: messagesListViewController,
             itemCount: pageProvider.messageModel!.length,
             itemBuilder: (BuildContext context, int index) {

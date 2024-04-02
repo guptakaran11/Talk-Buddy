@@ -89,6 +89,8 @@ class _ChatsPageState extends State<ChatsPage> {
         if (chats != null) {
           if (chats.isNotEmpty) {
             return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
               itemCount: chats.length,
               itemBuilder: (BuildContext context, int index) {
                 return chatTile(

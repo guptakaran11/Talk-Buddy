@@ -88,6 +88,8 @@ class _UserPageState extends State<UserPage> {
   Widget usersList() {
     return Expanded(child: () {
       return ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           return CustomListViewTile(
