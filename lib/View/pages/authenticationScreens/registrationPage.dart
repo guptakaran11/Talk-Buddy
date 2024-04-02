@@ -160,7 +160,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         } else {
           return RoundedImageNetwork(
             key: UniqueKey(),
-            imagePath: "https://i.pravatar.cc/1000?img=65",
+            imagePath: "https://i.pravatar.cc/300",
             size: height * 0.15,
           );
         }

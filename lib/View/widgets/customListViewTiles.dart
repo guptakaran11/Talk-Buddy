@@ -32,7 +32,7 @@ class CustomListViewTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       trailing:
-          isSelected ? const Icon(Icons.check, color: Colors.white) : null,
+          isSelected ? const Icon(Icons.check_box, color: Colors.white) : null,
       onTap: () => onTap(),
       minVerticalPadding: height * 0.20,
       leading: RoundedImageWithStatusIndicator(
