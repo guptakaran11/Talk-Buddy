@@ -2,12 +2,15 @@
 
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
 import 'package:talkbuddy/Controller/services/databaseServices.dart';
 import 'package:talkbuddy/Controller/services/navigationService.dart';
+import 'package:talkbuddy/Model/chatModel.dart';
 import 'package:talkbuddy/Model/chatUserModel.dart';
+import 'package:talkbuddy/View/pages/chatAndUserPages/messageScreen.dart';
 
 class UsersPageProvider extends ChangeNotifier {
   AuthenticationProvider auth;
@@ -62,5 +65,48 @@ class UsersPageProvider extends ChangeNotifier {
       selectedUsers.add(user);
     }
     notifyListeners();
+  }
+
+  void createChat() async {
+    try {
+      //  Creating ChatGroup
+      List<String> membersIds = selectedUsers.map((user) => user.uid).toList();
+      membersIds.add(auth.userModel.uid);
+      bool isGroup = selectedUsers.length > 1;
+      DocumentReference? doc = await database.createChat(
+        {
+          "is_group": isGroup,
+          "is_activity": false,
+          "members": membersIds,
+        },
+      );
+      // Navigate to Chat Group page
+      List<ChatUserModel> members = [];
+      for (var uid in membersIds) {
+        DocumentSnapshot userSnapshot = await database.getUser(uid);
+        Map<String, dynamic> userData =
+            userSnapshot.data() as Map<String, dynamic>;
+        userData["uid"] = userSnapshot.id;
+        members.add(
+          ChatUserModel.fromJSON(userData),
+        );
+      }
+      MessageScreen messageScreen = MessageScreen(
+        chat: ChatModel(
+          uid: doc!.id,
+          currentUserUid: auth.userModel.uid,
+          members: members,
+          messages: [],
+          activity: false,
+          group: isGroup,
+        ),
+      );
+      selectedUsers = [];
+      notifyListeners();
+      navigation.navigateToPage(messageScreen);
+    } catch (e) {
+      log("Error creating chat.");
+      log(e.toString());
+    }
   }
 }

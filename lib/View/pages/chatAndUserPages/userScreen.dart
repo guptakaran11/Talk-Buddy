@@ -7,6 +7,7 @@ import 'package:talkbuddy/Controller/provider/userPageProvider.dart';
 import 'package:talkbuddy/Model/chatUserModel.dart';
 import 'package:talkbuddy/View/widgets/customListViewTiles.dart';
 import 'package:talkbuddy/View/widgets/inputFields.dart';
+import 'package:talkbuddy/View/widgets/roundedButton.dart';
 import 'package:talkbuddy/View/widgets/topBar.dart';
 
 class UserPage extends StatefulWidget {
@@ -72,13 +73,17 @@ class _UserPageState extends State<UserPage> {
                 ),
               ),
               CustomTextField(
-                onEditingComplete: (value) {},
+                onEditingComplete: (value) {
+                  pageProvider.getUserFromDatabase(name: value);
+                  FocusScope.of(context).unfocus();
+                },
                 hintText: "Search.... ",
                 obscureText: false,
                 controller: searchFieldTextEditingController,
                 icon: Icons.search_rounded,
               ),
               usersList(),
+              createChatButton(),
             ],
           ),
         );
@@ -131,5 +136,21 @@ class _UserPageState extends State<UserPage> {
         );
       }
     }());
+  }
+
+  Widget createChatButton() {
+    return Visibility(
+      visible: pageProvider.selectedUsers.isNotEmpty,
+      child: RoundedButton(
+        name: pageProvider.selectedUsers.length == 1
+            ? "Chat With ${pageProvider.selectedUsers.first.name}"
+            : "Create Group Chat",
+        height: height * 0.08,
+        width: width * 0.80,
+        onPressed: () {
+          pageProvider.createChat();
+        },
+      ),
+    );
   }
 }
