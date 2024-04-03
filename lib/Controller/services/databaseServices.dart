@@ -109,4 +109,15 @@ class DatabaseServices {
       log(e.toString());
     }
   }
+
+  Future<DocumentReference?> createChat(Map<String, dynamic> data) async {
+    try {
+      DocumentReference chat = await db.collection(chatCollection).add(data);
+      return chat;
+    } catch (e) {
+      log("Error in creating Chat");
+      log(e.toString());
+    }
+    return null; // i added this line as it gave null result
+  }
 }
