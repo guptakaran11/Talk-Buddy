@@ -76,7 +76,7 @@ class _MessageScreenState extends State<MessageScreen> {
                 children: [
                   TopBar(
                     widget.chat.title(),
-                    fontSize: 18,
+                    fontSize: width * 0.03,
                     primaryAction: IconButton(
                       onPressed: () {
                         pageProvider.deleteChat();

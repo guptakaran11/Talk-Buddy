@@ -31,7 +31,12 @@ class ChatModel {
   String title() {
     return !group
         ? recepients.first.name
-        : recepients.map((user) => user.name).join(", "); // I have to make it to gave a group name who created the group in future.
+        : recepients
+            .map((user) => user.name)
+            .join(
+              ", ",
+            )
+            .trim(); // I have to make it to gave a group name who created the group in future.
   }
 
   String imageURL() {
