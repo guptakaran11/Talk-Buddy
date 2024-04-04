@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:file_picker/file_picker.dart';
 
 class MediaServices {
-  MediaServices(); // i have change this line with MediaServices(){} to MediaServices();
+  MediaServices(); 
 
   Future<PlatformFile?> pickImageFromLibrary() async {
     try {
@@ -14,11 +14,11 @@ class MediaServices {
       if (result != null && result.files.isNotEmpty) {
         return result.files[0];
       } else {
-        return null; // No file picked or operation canceled
+        return null; 
       }
     } catch (e) {
-      log('Error picking image: $e'); // Handle and log errors
-      return null; // Return null in case of error
+      log('Error picking image: $e'); 
+      return null; 
     }
   }
 }

@@ -78,7 +78,7 @@ class AuthenticationProvider extends ChangeNotifier {
     } catch (e) {
       log(e.toString());
     }
-    return null; // i added this line if error comes in registering remove this line
+    return null;
   }
 
   Future<void> logOut() async {

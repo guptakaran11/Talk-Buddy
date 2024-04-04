@@ -11,7 +11,7 @@ const String userCollection = "Users";
 
 class CloudStorageService {
   final FirebaseStorage storage = FirebaseStorage.instance;
-  CloudStorageService(); // i have changed this from CloudStorageServices(){} to CloudStorageServices();
+  CloudStorageService();
 
   Future<String?> saveUserImageToStorage(String uid, PlatformFile file) async {
     try {
@@ -28,7 +28,7 @@ class CloudStorageService {
     } catch (e) {
       log(e.toString());
     }
-    return null; // i add this line in case it does not gave anything
+    return null; 
   }
 
   Future<String?> saveChatImageToStorage(
@@ -47,6 +47,6 @@ class CloudStorageService {
     } catch (e) {
       log(e.toString());
     }
-    return null; // i added this line in case there is nothing to return
+    return null; 
   }
 }

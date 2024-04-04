@@ -180,7 +180,6 @@ class _MessageScreenState extends State<MessageScreen> {
               ),
             ),
             sendMessageButton(),
-            // i changed this position so run it
           ],
         ),
       ),

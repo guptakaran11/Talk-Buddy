@@ -118,6 +118,6 @@ class DatabaseServices {
       log("Error in creating Chat");
       log(e.toString());
     }
-    return null; // i added this line as it gave null result
+    return null; 
   }
 }

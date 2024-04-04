@@ -51,88 +51,90 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: width * 0.03,
-          vertical: height * 0.02,
-        ),
-        height: height * 0.98,
-        width: width * 0.97,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            profileImageField(),
-            SizedBox(
-              height: height * 0.06,
-            ),
-            SizedBox(
-              height: height * 0.32,
-              child: Form(
-                key: registerFormKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomTextFormField(
-                      onSaved: (value) {
-                        setState(() {
-                          name = value;
-                        });
-                      },
-                      regExp: r".{8,}",
-                      hintText: "Name",
-                      obscureText: false,
-                    ),
-                    CustomTextFormField(
-                      onSaved: (value) {
-                        setState(() {
-                          email = value;
-                        });
-                      },
-                      regExp:
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-                      hintText: "Email",
-                      obscureText: false,
-                    ),
-                    CustomTextFormField(
-                      onSaved: (value) {
-                        setState(() {
-                          password = value;
-                        });
-                      },
-                      regExp: r".{8,}",
-                      hintText: "Password",
-                      obscureText: true,
-                    ),
-                  ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: width * 0.03,
+            vertical: height * 0.02,
+          ),
+          height: height * 0.98,
+          width: width * 0.97,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              profileImageField(),
+              SizedBox(
+                height: height * 0.06,
+              ),
+              SizedBox(
+                height: height * 0.32,
+                child: Form(
+                  key: registerFormKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomTextFormField(
+                        onSaved: (value) {
+                          setState(() {
+                            name = value;
+                          });
+                        },
+                        regExp: r".{8,}",
+                        hintText: "Name",
+                        obscureText: false,
+                      ),
+                      CustomTextFormField(
+                        onSaved: (value) {
+                          setState(() {
+                            email = value;
+                          });
+                        },
+                        regExp:
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                        hintText: "Email",
+                        obscureText: false,
+                      ),
+                      CustomTextFormField(
+                        onSaved: (value) {
+                          setState(() {
+                            password = value;
+                          });
+                        },
+                        regExp: r".{8,}",
+                        hintText: "Password",
+                        obscureText: true,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: height * 0.05,
-            ),
-            RoundedButton(
-              name: "Register",
-              height: height * 0.065,
-              width: width * 0.65,
-              onPressed: () async {
-                if (registerFormKey.currentState!.validate() &&
-                    profileImage != null) {
-                  registerFormKey.currentState!.save();
-                  String? uid = await auth.registerUserWithEmailAndPassword(
-                      email!, password!);
-                  String? imageUrl = await cloudStorage.saveUserImageToStorage(
-                      uid!, profileImage!);
-                  await db.createUser(uid, email!, name!, imageUrl!);
-                  await auth.logOut();
-                  await auth.loginWithEmailAndPassword(email!, password!);
-                }
-              },
-            ),
-          ],
+              SizedBox(
+                height: height * 0.05,
+              ),
+              RoundedButton(
+                name: "Register",
+                height: height * 0.065,
+                width: width * 0.65,
+                onPressed: () async {
+                  if (registerFormKey.currentState!.validate() &&
+                      profileImage != null) {
+                    registerFormKey.currentState!.save();
+                    String? uid = await auth.registerUserWithEmailAndPassword(
+                        email!, password!);
+                    String? imageUrl = await cloudStorage
+                        .saveUserImageToStorage(uid!, profileImage!);
+                    await db.createUser(uid, email!, name!, imageUrl!);
+                    await auth.logOut();
+                    await auth.loginWithEmailAndPassword(email!, password!);
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
