@@ -1,6 +1,9 @@
 // ignore_for_file: file_names
 
+//* Packages
 import 'package:flutter/material.dart';
+
+//* Screens
 import 'package:talkbuddy/View/pages/chatAndUserPages/chatsScreen.dart';
 import 'package:talkbuddy/View/pages/chatAndUserPages/userScreen.dart';
 

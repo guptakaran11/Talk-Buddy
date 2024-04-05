@@ -2,7 +2,10 @@
 
 import 'dart:developer';
 
+//* Packages
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+//* Models
 import 'package:talkbuddy/Model/chatMessageModel.dart';
 
 const String userCollection = "Users";

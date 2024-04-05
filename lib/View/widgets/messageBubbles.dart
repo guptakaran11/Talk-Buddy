@@ -1,8 +1,11 @@
 // ignore_for_file: file_names
 
+//* Packages
 import 'package:flutter/material.dart';
-import 'package:talkbuddy/Model/chatMessageModel.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+//* Models
+import 'package:talkbuddy/Model/chatMessageModel.dart';
 
 class TextMessageBubble extends StatelessWidget {
   final bool isOwnMessage;

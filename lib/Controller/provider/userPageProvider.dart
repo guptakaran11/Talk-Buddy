@@ -2,14 +2,23 @@
 
 import 'dart:developer';
 
+//* Packages
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
+//* Providers
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+
+//* Services
 import 'package:talkbuddy/Controller/services/databaseServices.dart';
 import 'package:talkbuddy/Controller/services/navigationService.dart';
+
+//* Models
 import 'package:talkbuddy/Model/chatModel.dart';
 import 'package:talkbuddy/Model/chatUserModel.dart';
+
+//* Pages
 import 'package:talkbuddy/View/pages/chatAndUserPages/messageScreen.dart';
 
 class UsersPageProvider extends ChangeNotifier {

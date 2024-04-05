@@ -1,15 +1,26 @@
 // ignore_for_file: file_names
 
+//* Packages
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+
+//* Providers
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
 import 'package:talkbuddy/Controller/provider/chatsPageProvider.dart';
+
+//* Services
 import 'package:talkbuddy/Controller/services/navigationService.dart';
+
+//* Models
 import 'package:talkbuddy/Model/chatMessageModel.dart';
 import 'package:talkbuddy/Model/chatModel.dart';
 import 'package:talkbuddy/Model/chatUserModel.dart';
+
+//* Pages
 import 'package:talkbuddy/View/pages/chatAndUserPages/messageScreen.dart';
+
+//* Widgets
 import 'package:talkbuddy/View/widgets/customListViewTiles.dart';
 import 'package:talkbuddy/View/widgets/topBar.dart';
 

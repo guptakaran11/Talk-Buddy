@@ -2,11 +2,16 @@
 
 import 'dart:developer';
 
+//* Packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
+//* Services
 import 'package:talkbuddy/Controller/services/databaseServices.dart';
 import 'package:talkbuddy/Controller/services/navigationService.dart';
+
+//* Models
 import 'package:talkbuddy/Model/chatUserModel.dart';
 
 class AuthenticationProvider extends ChangeNotifier {

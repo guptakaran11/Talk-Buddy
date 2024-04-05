@@ -1,10 +1,17 @@
 // ignore_for_file: file_names
 
+//* Packages
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+
+//* Providers
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+
+//* Services
 import 'package:talkbuddy/Controller/services/navigationService.dart';
+
+//* Widgets
 import 'package:talkbuddy/View/widgets/inputFields.dart';
 import 'package:talkbuddy/View/widgets/roundedButton.dart';
 

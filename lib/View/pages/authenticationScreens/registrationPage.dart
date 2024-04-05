@@ -2,15 +2,22 @@
 
 import 'dart:developer';
 
+// Packages
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+
+//* Providers
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+
+//* Services
 import 'package:talkbuddy/Controller/services/cloudStorageServices.dart';
 import 'package:talkbuddy/Controller/services/databaseServices.dart';
 import 'package:talkbuddy/Controller/services/mediaServices.dart';
 import 'package:talkbuddy/Controller/services/navigationService.dart';
+
+//* Widgets
 import 'package:talkbuddy/View/widgets/inputFields.dart';
 import 'package:talkbuddy/View/widgets/roundedButton.dart';
 import 'package:talkbuddy/View/widgets/roundedImage.dart';

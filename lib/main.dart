@@ -1,15 +1,15 @@
 
-// Packages
+//* Packages
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// Providers
+//* Providers
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
 
-// Services
+//* Services
 import 'package:talkbuddy/Controller/services/navigationService.dart';
 
-// Pages
+//* Pages
 import 'package:talkbuddy/View/pages/homePage.dart';
 import 'package:talkbuddy/View/pages/authenticationScreens/loginPage.dart';
 import 'package:talkbuddy/View/pages/authenticationScreens/registrationPage.dart';

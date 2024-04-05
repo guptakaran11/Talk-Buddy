@@ -3,11 +3,18 @@
 import 'dart:async';
 import 'dart:developer';
 
+//* Packages
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
+//* Providers
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+
+//* Services
 import 'package:talkbuddy/Controller/services/databaseServices.dart';
+
+//* Models
 import 'package:talkbuddy/Model/chatMessageModel.dart';
 import 'package:talkbuddy/Model/chatModel.dart';
 import 'package:talkbuddy/Model/chatUserModel.dart';

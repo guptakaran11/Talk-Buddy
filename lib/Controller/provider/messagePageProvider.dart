@@ -3,15 +3,22 @@
 import 'dart:async';
 import 'dart:developer';
 
+//* Packages
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get_it/get_it.dart';
+
+//* Providers
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
+
+//* Services
 import 'package:talkbuddy/Controller/services/cloudStorageServices.dart';
 import 'package:talkbuddy/Controller/services/databaseServices.dart';
 import 'package:talkbuddy/Controller/services/mediaServices.dart';
 import 'package:talkbuddy/Controller/services/navigationService.dart';
+
+//* Models
 import 'package:talkbuddy/Model/chatMessageModel.dart';
 
 class MessagePageProvider extends ChangeNotifier {

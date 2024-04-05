@@ -1,12 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: file_names
 
+//* Packages
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+//* Models
 import 'package:talkbuddy/Model/chatMessageModel.dart';
 import 'package:talkbuddy/Model/chatUserModel.dart';
+
+//* Widgets
 import 'package:talkbuddy/View/widgets/messageBubbles.dart';
 import 'package:talkbuddy/View/widgets/roundedImage.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 class CustomListViewTile extends StatelessWidget {
   final double height;
