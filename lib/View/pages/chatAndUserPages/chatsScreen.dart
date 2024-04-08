@@ -73,6 +73,7 @@ class _ChatsPageState extends State<ChatsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Make the drawer for the setting and logout statement 
               TopBar(
                 'Chats',
                 primaryAction: IconButton(
