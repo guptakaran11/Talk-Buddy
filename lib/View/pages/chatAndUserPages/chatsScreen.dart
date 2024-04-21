@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 //* Providers
 import 'package:talkbuddy/Controller/provider/authenticationProvider.dart';
 import 'package:talkbuddy/Controller/provider/chatsPageProvider.dart';
+import '../../../Controller/provider/messagePageProvider.dart';
 
 //* Services
 import 'package:talkbuddy/Controller/services/navigationService.dart';
@@ -24,6 +25,9 @@ import 'package:talkbuddy/View/pages/chatAndUserPages/messageScreen.dart';
 import 'package:talkbuddy/View/widgets/customListViewTiles.dart';
 import 'package:talkbuddy/View/widgets/topBar.dart';
 
+//* Utilities
+import '../Utilities/utility.dart';
+
 class ChatsPage extends StatefulWidget {
   const ChatsPage({super.key});
 
@@ -38,6 +42,7 @@ class _ChatsPageState extends State<ChatsPage> {
   late AuthenticationProvider auth;
   late NavigationServices navigation;
   late ChatsPageProvider pageProvider;
+  late MessagePageProvider messageProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +78,24 @@ class _ChatsPageState extends State<ChatsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Make the drawer for the setting and logout statement 
+              // Make the drawer for the setting and logout statement
               TopBar(
                 'Chats',
                 primaryAction: IconButton(
                   onPressed: () {
-                    auth.logOut();
+                    showAnimatedDialog(
+                      context: context,
+                      title: "LogOut",
+                      content:
+                          "Are you sure you want to Logout from the Talk-Buddy ?",
+                      actionText: "LogOut",
+                      onActionPressed: (value) {
+                        if (value) {
+                          // Logout  the chat
+                          auth.logOut();
+                        }
+                      },
+                    );
                   },
                   icon: const Icon(
                     Icons.logout_rounded,
@@ -145,6 +162,21 @@ class _ChatsPageState extends State<ChatsPage> {
       imagePath: chat.imageURL(),
       isActive: isActive,
       isActivity: chat.activity,
+      onLongPress: () {
+        // show my animated dialog to delete the chat
+        showAnimatedDialog(
+          context: context,
+          title: "Delete Chat",
+          content: "Are you sure you want to delete the Chat from Talk-Buddy?",
+          actionText: "Delete",
+          onActionPressed: (value) {
+            if (value) {
+              // delete the chat
+              messageProvider.deleteChat();
+            }
+          },
+        );
+      },
       onTap: () {
         navigation.navigateToPage(
           MessageScreen(

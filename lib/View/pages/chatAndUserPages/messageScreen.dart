@@ -17,6 +17,9 @@ import 'package:talkbuddy/View/widgets/customListViewTiles.dart';
 import 'package:talkbuddy/View/widgets/inputFields.dart';
 import 'package:talkbuddy/View/widgets/topBar.dart';
 
+//* Utilities
+import '../Utilities/utility.dart';
+
 class MessageScreen extends StatefulWidget {
   final ChatModel chat;
   const MessageScreen({super.key, required this.chat});
@@ -86,7 +89,18 @@ class _MessageScreenState extends State<MessageScreen> {
                     fontSize: width * 0.03,
                     primaryAction: IconButton(
                       onPressed: () {
-                        pageProvider.deleteChat();
+                        showAnimatedDialog(
+                          context: context,
+                          title: "Delete Chat",
+                          content: "Are you sure you want to delete the chat?",
+                          actionText: "Delete",
+                          onActionPressed: (value) {
+                            if (value) {
+                              // delete the chat
+                              pageProvider.deleteChat();
+                            }
+                          },
+                        );
                       },
                       icon: const Icon(
                         Icons.delete_rounded,

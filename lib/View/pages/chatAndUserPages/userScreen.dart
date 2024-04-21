@@ -17,6 +17,9 @@ import 'package:talkbuddy/View/widgets/inputFields.dart';
 import 'package:talkbuddy/View/widgets/roundedButton.dart';
 import 'package:talkbuddy/View/widgets/topBar.dart';
 
+//* Utilities
+import '../Utilities/utility.dart';
+
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
 
@@ -71,7 +74,19 @@ class _UserPageState extends State<UserPage> {
                 'Users',
                 primaryAction: IconButton(
                   onPressed: () {
-                    auth.logOut();
+                    showAnimatedDialog(
+                      context: context,
+                      title: "LogOut",
+                      content:
+                          "Are you sure you want to Logout from the Talk-Buddy?",
+                      actionText: "LogOut",
+                      onActionPressed: (value) {
+                        if (value) {
+                          // Logout  the chat
+                          auth.logOut();
+                        }
+                      },
+                    );
                   },
                   icon: const Icon(
                     Icons.logout_rounded,

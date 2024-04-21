@@ -13,7 +13,6 @@ import 'package:talkbuddy/Model/chatUserModel.dart';
 import 'package:talkbuddy/View/widgets/messageBubbles.dart';
 import 'package:talkbuddy/View/widgets/roundedImage.dart';
 
-
 class CustomListViewTile extends StatelessWidget {
   final double height;
   final String title;
@@ -76,6 +75,7 @@ class CustomListViewTileWithActivity extends StatelessWidget {
   final bool isActive;
   final bool isActivity;
   final Function onTap;
+  final Function? onLongPress;
 
   const CustomListViewTileWithActivity({
     super.key,
@@ -86,11 +86,13 @@ class CustomListViewTileWithActivity extends StatelessWidget {
     required this.isActive,
     required this.isActivity,
     required this.onTap,
+    this.onLongPress,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onLongPress: () => onLongPress,
       onTap: () => onTap(),
       minVerticalPadding: height * 0.20,
       leading: RoundedImageWithStatusIndicator(
