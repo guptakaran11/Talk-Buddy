@@ -8,7 +8,9 @@ import 'package:talkbuddy/View/pages/chatAndUserPages/chatsScreen.dart';
 import 'package:talkbuddy/View/pages/chatAndUserPages/userScreen.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({
+    super.key,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();

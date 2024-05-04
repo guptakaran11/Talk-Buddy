@@ -75,7 +75,7 @@ class CustomListViewTileWithActivity extends StatelessWidget {
   final bool isActive;
   final bool isActivity;
   final Function onTap;
-  final Function? onLongPress;
+  final Function onLongPress;
 
   const CustomListViewTileWithActivity({
     super.key,
@@ -86,13 +86,13 @@ class CustomListViewTileWithActivity extends StatelessWidget {
     required this.isActive,
     required this.isActivity,
     required this.onTap,
-    this.onLongPress,
+    required this.onLongPress,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onLongPress: () => onLongPress,
+      onLongPress: () => onLongPress(),
       onTap: () => onTap(),
       minVerticalPadding: height * 0.20,
       leading: RoundedImageWithStatusIndicator(
