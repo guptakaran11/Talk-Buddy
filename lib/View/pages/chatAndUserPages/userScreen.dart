@@ -170,7 +170,21 @@ class _UserPageState extends State<UserPage> {
         height: height * 0.08,
         width: width * 0.80,
         onPressed: () {
-          pageProvider.createChat();
+          showAnimatedDialog(
+            context: context,
+            title: pageProvider.selectedUsers.length == 1
+                ? "Chat With ${pageProvider.selectedUsers.first.name}"
+                : "Create Group Chat",
+            content: pageProvider.selectedUsers.length == 1
+                ? " Are you sure you want to Chat With ${pageProvider.selectedUsers.first.name}"
+                : " Are you sure you want to Create Group Chat",
+            actionText: 'Chat',
+            onActionPressed: (value) {
+              if (value) {
+                pageProvider.createChat();
+              }
+            },
+          );
         },
       ),
     );
