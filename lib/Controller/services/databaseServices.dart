@@ -123,4 +123,35 @@ class DatabaseServices {
     }
     return null; 
   }
+
+  Future<QuerySnapshot> getFriends(String userId) async {
+    // Fetch friends from the 'friends' collection
+    return FirebaseFirestore.instance
+        .collection('friends')
+        .where('userIds', arrayContains: userId)
+        .get();
+  }
+
+  // Method to add a friend in the database
+  Future<void> addFriend(String userId, String friendId) async {
+    // Add a new document to the 'friends' collection
+    await FirebaseFirestore.instance.collection('friends').add({
+      'userIds': [userId, friendId],
+      // Other friend details if necessary
+    });
+  }
+
+  // Method to remove a friend from the database
+  Future<void> removeFriend(String userId, String friendId) async {
+    // Find the document representing the friendship and delete it
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('friends')
+        .where('userIds', arrayContains: userId)
+        .where('userIds', arrayContains: friendId)
+        .get();
+
+    for (var doc in snapshot.docs) {
+      await doc.reference.delete();
+    }
+  }
 }

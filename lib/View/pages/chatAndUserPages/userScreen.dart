@@ -175,4 +175,64 @@ class _UserPageState extends State<UserPage> {
       ),
     );
   }
+
+  Widget friendsList() {
+    List<ChatUserModel>? friends = pageProvider.friends;
+    return Expanded(child: () {
+      if (friends != null) {
+        if (friends.isNotEmpty) {
+          return ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: friends.length,
+            itemBuilder: (BuildContext context, int index) {
+              bool isSelected =
+                  pageProvider.selectedUsers.contains(friends[index]);
+              return CustomListViewTile(
+                height: height * 0.10,
+                title: friends[index].name,
+                subtitle: "Last Active: ${friends[index].lastDayActive()} ",
+                imagePath: friends[index].imageURl,
+                isActive: friends[index].wasRecentlyActive(),
+                isSelected: isSelected,
+                onTap: () {
+                  pageProvider.updateSelectedUsers(friends[index]);
+                },
+              );
+            },
+          );
+        } else {
+          return const Center(
+            child: Text(
+              "No Friends found!!",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          );
+        }
+      } else {
+        return const Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
+        );
+      }
+    }());
+  }
+
+  Widget addFriendButton() {
+    return Visibility(
+      visible: pageProvider.selectedUser.isNotEmpty,
+      child: RoundedButton(
+        name: "Add Friend",
+        height: height * 0.08,
+        width: width * 0.80,
+        onPressed: () {
+          // Assuming you have a method in your provider to add a friend
+          pageProvider.addFriend(pageProvider.selectedUser.first);
+        },
+      ),
+    );
+  }
 }

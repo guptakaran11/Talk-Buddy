@@ -172,6 +172,7 @@ class _ChatsPageState extends State<ChatsPage> {
           onActionPressed: (value) {
             if (value) {
               // delete the chat
+              pageProvider.deleteChat(chat.uid);
             }
           },
         );

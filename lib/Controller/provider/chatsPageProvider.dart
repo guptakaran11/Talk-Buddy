@@ -39,6 +39,21 @@ class ChatsPageProvider extends ChangeNotifier {
     super.dispose();
   }
 
+  Future<void> deleteChat(String chatId) async {
+    try {
+      // Delete the chat from the database
+      await db.deleteChat(chatId);
+
+      // Remove the chat from the local list
+      chats?.removeWhere((chat) => chat.uid == chatId);
+
+      // Notify listeners to update the UI
+      notifyListeners();
+    } catch (e) {
+      log('Error deleting chat: $e');
+    }
+  }
+
   void getChats() async {
     try {
       chatsStream =

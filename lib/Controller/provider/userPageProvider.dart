@@ -34,11 +34,15 @@ class UsersPageProvider extends ChangeNotifier {
     return selectedUsers;
   }
 
+  List<ChatUserModel>? friends = []; // Initialize with an empty list
+  bool isLoading = true;
+
   UsersPageProvider(this.auth) {
     selectedUsers = [];
     database = GetIt.instance.get<DatabaseServices>();
     navigation = GetIt.instance.get<NavigationServices>();
     getUserFromDatabase();
+    getFriends();
   }
 
   @override
@@ -116,6 +120,45 @@ class UsersPageProvider extends ChangeNotifier {
     } catch (e) {
       log("Error creating chat.");
       log(e.toString());
+    }
+  }
+
+  // Method to fetch the current user's friends from the database
+  void getFriends() async {
+    try {
+      // Assuming you have a 'friends' collection in Firestore
+      // where each document represents a friendship
+      QuerySnapshot friendsSnapshot =
+          await database.getFriends(auth.userModel.uid);
+      friends = friendsSnapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        return ChatUserModel.fromJSON(data);
+      }).toList();
+      notifyListeners();
+    } catch (e) {
+      log("Error getting friends: $e");
+    }
+  }
+
+  // Method to add a friend
+  void addFriend(ChatUserModel user) async {
+    try {
+      // Add friend to the database
+      await database.addFriend(auth.userModel.uid, user.uid);
+      getFriends(); // Refresh the friends list
+    } catch (e) {
+      log("Error adding friend: $e");
+    }
+  }
+
+  // Method to remove a friend
+  void removeFriend(ChatUserModel user) async {
+    try {
+      // Remove friend from the database
+      await database.removeFriend(auth.userModel.uid, user.uid);
+      getFriends(); // Refresh the friends list
+    } catch (e) {
+      log("Error removing friend: $e");
     }
   }
 }
