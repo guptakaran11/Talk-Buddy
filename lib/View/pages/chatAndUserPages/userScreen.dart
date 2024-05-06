@@ -243,7 +243,6 @@ class _UserPageState extends State<UserPage> {
         height: height * 0.08,
         width: width * 0.80,
         onPressed: () {
-          // Assuming you have a method in your provider to add a friend
           pageProvider.addFriend(pageProvider.selectedUser.first);
         },
       ),
